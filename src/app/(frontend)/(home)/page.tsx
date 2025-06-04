@@ -9,7 +9,7 @@ export default async function Page() {
     <div className="p-4">
       <div className="flex flex-col gap-y-4">
         <div>
-          <Button variant="elevated">Button</Button>
+          <Button variant="elevated">Iam a Button</Button>
         </div>
         <div>
           <Input placeholder="Input" />
