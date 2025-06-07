@@ -1,3 +1,4 @@
+"use client"
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -39,25 +40,26 @@ export const CategoiresSidebar = ({ open, onOpenChange }: Props) => {
   };
 
   const handleCategoryClick = (category: CategoriesGetManyOutput[1]) => {
-    if (category.subcategories && category.subcategories.length > 0) {
-      setParentCategories(category.subcategories as CategoriesGetManyOutput);
-      setSelectedCategory(category);
-    } else {
-      // This is a leaf category (no subcategories)
-      if (parentCategories && selectedCategory) {
-        // This is a subcategory - navigate to /catgeory/subcategory
-        router.push(`/${selectedCategory.slug}/${category.slug}`);
-      } else {
-        // This is a main category - navigat to /category
-        if (category.slug === "all") {
-          router.push("/");
-        } else {
-          router.push(`/${category.slug}`);
-        }
-      }
-      handleOpenChange(false);
-    }
-  };
+		if (category.subcategories && category.subcategories.length > 0) {
+			setParentCategories(category.subcategories as CategoriesGetManyOutput);
+			setSelectedCategory(category);
+		} else {
+			// this is a leaf category (no subcategories)
+			if (parentCategories && selectedCategory) {
+				// this is a subcategory - navigate to /category/subcategory
+				router.push(`/${selectedCategory.slug}/${category.slug}`);
+			} else {
+				// this is a main category - navigate to /category
+				if (category.slug === 'all') {
+					router.push('/');
+				} else {
+					router.push(`/${category.slug}`);
+				}
+			}
+
+			handleOpenChange(false);
+		}
+	};
 
   const handleBackClick = () => {
     if (parentCategories) {
