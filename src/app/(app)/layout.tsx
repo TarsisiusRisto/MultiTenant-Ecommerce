@@ -1,24 +1,27 @@
-import type { Metadata } from 'next'
-import { DM_Sans } from 'next/font/google'
-import './globals.css'
+import type { Metadata } from "next";
+import { DM_Sans } from "next/font/google";
+import "./globals.css";
+import { TRPCReactProvider } from "@/trpc/client";
 
 const dmsans = DM_Sans({
-  subsets: ['latin'],
-})
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
-  title: 'Multitenant E-commerce',
-  description: 'Created by @tarsisiusristo',
-}
+  title: "Multitenant E-commerce",
+  description: "Created by @tarsisiusristo",
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
-      <body className={`${dmsans.className}  antialiased`}>{children}</body>
+      <body className={`${dmsans.className}  antialiased`}>
+        <TRPCReactProvider>{children}</TRPCReactProvider>
+      </body>
     </html>
-  )
+  );
 }
