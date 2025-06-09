@@ -2,7 +2,7 @@
 
 import { Input } from "@/components/ui/input";
 import { BookmarkCheckIcon, ListFilterIcon, SearchIcon } from "lucide-react";
-import { CategoiresSidebar } from "./categories-sidebar";
+import { CategoriesSidebar } from "./categories-sidebar";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useTRPC } from "@/trpc/client";
@@ -21,7 +21,7 @@ export const SearchInput = ({ disabled }: Props) => {
 
   return (
     <div className="flex items-center gap-2 w-full">
-      <CategoiresSidebar
+      <CategoriesSidebar
         open={isSidebarOpen}
         onOpenChange={setIsSidebarOpen}
       />
