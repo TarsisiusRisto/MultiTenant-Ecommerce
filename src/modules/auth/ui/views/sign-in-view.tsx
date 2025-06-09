@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useTRPC } from "@/trpc/client";
-import { useMutation } from "@tanstack/react-query";
+import { QueryClient, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 const poppins = Poppins({
@@ -30,12 +30,14 @@ const poppins = Poppins({
 export const SingInView = () => {
   const router = useRouter();
   const trpc = useTRPC();
+  const queryClient = useQueryClient();
   const login = useMutation(
     trpc.auth.login.mutationOptions({
       onError: (error) => {
         toast.error(error.message);
       },
-      onSuccess: () => {
+      onSuccess: async() => {
+        await queryClient.invalidateQueries(trpc.auth.session.queryFilter());
         router.push("/");
       },
     })
@@ -80,9 +82,7 @@ export const SingInView = () => {
                 </Link>
               </Button>
             </div>
-            <h1 className="text-4xl font-medium">
-              Welcome back to Funroad
-            </h1>
+            <h1 className="text-4xl font-medium">Welcome back to Funroad</h1>
             <FormField
               name="email"
               render={({ field }) => (
