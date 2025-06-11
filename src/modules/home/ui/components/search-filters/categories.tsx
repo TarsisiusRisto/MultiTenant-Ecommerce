@@ -18,11 +18,11 @@ export const Categories = ({ data }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const measureRef = useRef<HTMLDivElement>(null);
   const viewAllRef = useRef<HTMLDivElement>(null);
-  
+
   const [visibleCount, setVisibleCount] = useState(data.length);
   const [isAnyHovered, setIsAnyHovered] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  
+
   const params = useParams();
   const categoryParam = params.category as string | undefined;
 
@@ -31,7 +31,7 @@ export const Categories = ({ data }: Props) => {
     (cat) => cat.slug === activeCategory
   );
   const isActiveCategoryHidden =
-    activeCategoryIndex >= visibleCount && activeCategoryIndex !==   -1;
+    activeCategoryIndex >= visibleCount && activeCategoryIndex !== -1;
   useEffect(() => {
     const calculateVisible = () => {
       if (!containerRef.current || !measureRef.current || !viewAllRef.current)
@@ -88,6 +88,8 @@ export const Categories = ({ data }: Props) => {
         onMouseEnter={() => setIsAnyHovered(true)}
         onMouseLeave={() => setIsAnyHovered(false)}
       >
+        {/* // TODO: Hardcode "all" button */}
+        
         {data.slice(0, visibleCount).map((category) => (
           <CategoryDropDown
             key={category.id}
@@ -98,7 +100,7 @@ export const Categories = ({ data }: Props) => {
         ))}
         <div ref={viewAllRef} className="shrink-0">
           <Button
-          variant="elevated"
+            variant="elevated"
             className={cn(
               "h-11 px-4 bg-transparent border-transparent rounded-full hover:bg-white hover:border-primary text-black ",
               isActiveCategoryHidden &&
